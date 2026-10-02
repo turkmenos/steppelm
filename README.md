@@ -1,34 +1,20 @@
-# steppelm
+## Train the first Turkmen tokenizer
 
-SteppeLM is an educational project for building a small Turkmen language
-model from openly available Turkmen text data.
+SteppeLM uses a Byte-Pair Encoding (BPE) tokenizer for the initial tokenizer.
 
-## Project structure
+BPE learns a vocabulary by starting from small symbols and repeatedly merging
+frequent token pairs. This produces subword tokens that can represent common
+Turkmen words while still handling previously unseen words.
 
-- `README.md` — project documentation
-- `requirements.txt` — Python dependencies
-- `data/tm-data/` — Turkmen source dataset provided as a Git submodule
-- `data/processed/` — generated training datasets
-- `src/` — dataset and model source code
-- `tests/` — automated tests
-- `checkpoints/` — model checkpoints used by later tasks
+The tokenizer defines these special tokens:
 
-## Source dataset
+- `<pad>` — padding
+- `<unk>` — unknown token
+- `<bos>` — beginning of sequence
+- `<eos>` — end of sequence
+- `<mask>` — masked token reserved for future use
 
-The initial dataset is provided by:
-
-https://github.com/turkmenos/tm-data
-
-The SteppeLM repository consumes the `stories/` JSON files from `tm-data`.
-
-The story dataset uses page-level JSON documents with a `pages` array.
-Each page contains fields such as `page_number` and `text`.
-
-The source dataset remains separate from the generated training dataset.
-
-## Initialize the dataset
-
-After cloning the repository:
+Install dependencies:
 
 ```bash
-git submodule update --init --recursive
+python -m pip install -r requirements.txt
