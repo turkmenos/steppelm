@@ -1,42 +1,34 @@
 # steppelm
 
-## Current files and folders
+SteppeLM is an educational project for building a small Turkmen language
+model from openly available Turkmen text data.
 
-- `README.md` — project overview and learning notes
+## Project structure
+
+- `README.md` — project documentation
 - `requirements.txt` — Python dependencies
-- `data/` — source and prepared datasets
-- `src/` — Python source code
-- `tests/` — tests for the code you write
-- `checkpoints/` — saved model weights (later)
+- `data/tm-data/` — Turkmen source dataset provided as a Git submodule
+- `data/processed/` — generated training datasets
+- `src/` — dataset and model source code
+- `tests/` — automated tests
+- `checkpoints/` — model checkpoints used by later tasks
 
-## First task
+## Source dataset
 
-Choose one Turkmen text file from the dataset. Note its filename, format, and the field containing the text. No code is needed for this step.
+The initial dataset is provided by:
 
-## Prepare the training dataset
+https://github.com/turkmenos/tm-data
 
-The initial pipeline reads page-level JSON files from `tm-data`, removes empty
-lines, normalizes repeated spaces, and preserves Turkmen characters. It writes
-one cleaned page per line in JSONL format, together with its source and page
-number.
+The SteppeLM repository consumes the `stories/` JSON files from `tm-data`.
 
-Initialize the dataset submodule after cloning the repository:
+The story dataset uses page-level JSON documents with a `pages` array.
+Each page contains fields such as `page_number` and `text`.
+
+The source dataset remains separate from the generated training dataset.
+
+## Initialize the dataset
+
+After cloning the repository:
 
 ```bash
 git submodule update --init --recursive
-```
-
-Prepare the dataset:
-
-```bash
-python3 src/prepare_dataset.py
-```
-
-The generated file is written to `data/processed/train.jsonl`. Generated data
-is ignored by Git and can be rebuilt from the source data at any time.
-
-Run the cleaning tests:
-
-```bash
-python3 -m unittest discover -s tests
-```
